@@ -27,6 +27,9 @@ builder.Services.AddTransient<IAuthorRepository, AuthorRepository>();
 // Inyectando servicio generico - trabaja cada vez que un clente se haga un request.
 builder.Services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
 
+//Para que no me pida ID al insertar datos
+builder.Services.AddControllers(
+options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
 
 var app = builder.Build();
 

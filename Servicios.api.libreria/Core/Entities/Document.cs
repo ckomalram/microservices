@@ -15,7 +15,7 @@ public interface IDocument
 {
 
     [BsonId]
-    [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
+    [BsonRepresentation(BsonType.ObjectId)]
     string Id { get; set; }
 
     DateTime CreatedDated { get; }
