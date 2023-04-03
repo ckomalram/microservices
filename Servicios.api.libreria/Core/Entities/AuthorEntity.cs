@@ -3,14 +3,8 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Servicios.api.libreria.Core.Entities;
 
-public class Author
+public class AuthorEntity : Document
 {
-    /**
-        * Definiendo object id de mongo
-    */
-    [BsonId]
-    [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
-    public string Id { get; set; }
 
     [BsonElement("nombre")]
     public string Nombre { get; set; }
