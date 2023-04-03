@@ -33,10 +33,42 @@ public class MongoRepository<TDocument> : IMongoRepository<TDocument> where TDoc
         return response;
     }
 
+    public async Task<TDocument> GetById(string Id)
+    {
+        var filter = Builders<TDocument>.Filter.Eq(doc => doc.Id, Id);
+        var response = await collectionname.Find(filter).SingleOrDefaultAsync();
+        return response;
+    }
+
+    public async Task InsertDocument(TDocument document)
+    {
+        await collectionname.InsertOneAsync(document);
+    }
+
+    public async Task UpdateDocument(TDocument document)
+    {
+        var filter = Builders<TDocument>.Filter.Eq(doc => doc.Id, document.Id);
+        await collectionname.FindOneAndReplaceAsync(filter, document);
+    }
+
+    public async Task DeleteDocument(string Id)
+    {
+        var filter = Builders<TDocument>.Filter.Eq(doc => doc.Id, Id);
+        await collectionname.FindOneAndDeleteAsync(filter);
+
+
+    }
 }
 
 public interface IMongoRepository<TDocument> where TDocument : IDocument
 {
 
     Task<IEnumerable<TDocument>> Getall();
+    Task<TDocument> GetById(string Id);
+
+    Task InsertDocument(TDocument document);
+
+    Task UpdateDocument(TDocument document);
+    Task DeleteDocument(string Id);
+
 }
