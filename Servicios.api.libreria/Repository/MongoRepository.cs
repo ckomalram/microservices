@@ -58,16 +58,46 @@ public class MongoRepository<TDocument> : IMongoRepository<TDocument> where TDoc
         await collectionname.FindOneAndDeleteAsync(filter);
     }
 
-    public Task<PaginationEntity<TDocument>> PaginationBy(Expression<Func<TDocument, bool>> filterExpression, PaginationEntity<TDocument> pagination)
+    public async Task<PaginationEntity<TDocument>> PaginationBy(Expression<Func<TDocument, bool>> filterExpression, PaginationEntity<TDocument> pagination)
     {
         var sort = Builders<TDocument>.Sort.Ascending(pagination.Sort);
+        var emptyFilter = Builders<TDocument>.Filter.Empty;
+        var skip = (pagination.Page - 1 * pagination.PageSize);
+
+        // Obtener count de toda la colección
+        long totalDocument = await collectionname.CountDocumentsAsync(emptyFilter);
+        var totalPages = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(totalDocument / pagination.PageSize)));
+
+        pagination.PagesQuantity = totalPages;
 
         if (pagination.SortDirection == "desc")
         {
             sort = Builders<TDocument>.Sort.Descending(pagination.Sort);
         }
 
-        return;
+        if (string.IsNullOrEmpty(pagination.Filter))
+        {
+
+            var rta = await collectionname
+                            .Find(emptyFilter)
+                            .Sort(sort)
+                            .Skip(skip)
+                            .Limit(pagination.PageSize)
+                            .ToListAsync();
+            pagination.Data = rta;
+        }
+        else
+        {
+            var rta = await collectionname
+                .Find(pagination.Filter)
+                .Sort(sort)
+                .Skip(skip)
+                .Limit(pagination.PageSize)
+                .ToListAsync();
+            pagination.Data = rta;
+        }
+
+        return pagination;
 
     }
 }
