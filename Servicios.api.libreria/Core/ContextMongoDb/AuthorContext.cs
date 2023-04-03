@@ -4,10 +4,7 @@ using Servicios.api.libreria.Core.Entities;
 
 namespace Servicios.api.libreria.Core.ContextMongoDb;
 
-public interface IAuthorContext
-{
-    IMongoCollection<Author> Autores { get; }
-}
+
 
 public class AuthorContext : IAuthorContext
 {
@@ -21,4 +18,9 @@ public class AuthorContext : IAuthorContext
     }
 
     public IMongoCollection<Author> Autores => collectionname;
+}
+
+public interface IAuthorContext
+{
+    IMongoCollection<Author> Autores { get; }
 }

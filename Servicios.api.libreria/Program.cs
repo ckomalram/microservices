@@ -1,4 +1,6 @@
 using Servicios.api.libreria.Core;
+using Servicios.api.libreria.Core.ContextMongoDb;
+using Servicios.api.libreria.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,8 +16,14 @@ builder.Services.Configure<MongoSettings>(
     builder.Configuration.GetSection("MongoDb")
 );
 
-// Agregando singleton con mongoo
+// Agregando singleton con mongoo para que la configuracion sea 1
 builder.Services.AddSingleton<MongoSettings>();
+
+// Inyectando author context modo tracient.. osea periodos cortos de isntancias.
+builder.Services.AddTransient<IAuthorContext, AuthorContext>();
+
+// inyectando servicio o repositorio
+builder.Services.AddTransient<IAuthorRepository, AuthorRepository>();
 
 
 var app = builder.Build();
