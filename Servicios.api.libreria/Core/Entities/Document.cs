@@ -5,16 +5,18 @@ namespace Servicios.api.libreria.Core.Entities;
 
 public class Document : IDocument
 {
-    public ObjectId Id { get; set; }
-    public DateTime CreatedDated => Id.CreationTime;
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string Id { get; set; }
+    public DateTime CreatedDated => DateTime.Now;
 }
 
 public interface IDocument
 {
 
     [BsonId]
-    [BsonRepresentation(MongoDB.Bson.BsonType.String)]
-    ObjectId Id { get; set; }
+    [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
+    string Id { get; set; }
 
     DateTime CreatedDated { get; }
 }
