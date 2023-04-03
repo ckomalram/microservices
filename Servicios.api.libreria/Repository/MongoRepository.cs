@@ -25,10 +25,12 @@ public class MongoRepository<TDocument> : IMongoRepository<TDocument> where TDoc
     {
         return ((BsonCollectionAtribute)documentType.GetCustomAttributes(typeof(BsonCollectionAtribute), true).FirstOrDefault()).CollectionName;
     }
-    public IQueryable<TDocument> Getall()
+    public async Task<IEnumerable<TDocument>> Getall()
     {
-
-        return collectionname.AsQueryable();
+        var filter = Builders<TDocument>.Filter.Empty;
+        var cursor = await collectionname.FindAsync(filter);
+        var response = await cursor.ToListAsync();
+        return response;
     }
 
 }
@@ -36,5 +38,5 @@ public class MongoRepository<TDocument> : IMongoRepository<TDocument> where TDoc
 public interface IMongoRepository<TDocument> where TDocument : IDocument
 {
 
-    IQueryable<TDocument> Getall();
+    Task<IEnumerable<TDocument>> Getall();
 }

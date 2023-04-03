@@ -3,6 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Servicios.api.libreria.Core.Entities;
 
+[BsonCollectionAtribute("Author")]
 public class AuthorEntity : Document
 {
 

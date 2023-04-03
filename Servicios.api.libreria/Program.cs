@@ -24,6 +24,8 @@ builder.Services.AddTransient<IAuthorContext, AuthorContext>();
 
 // inyectando servicio o repositorio
 builder.Services.AddTransient<IAuthorRepository, AuthorRepository>();
+// Inyectando servicio generico - trabaja cada vez que un clente se haga un request.
+builder.Services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
 
 
 var app = builder.Build();
