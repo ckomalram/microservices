@@ -17,3 +17,5 @@
     Crear repositorio generico
     Implementar repositorio generico a controlador
     Agregar endpoint restantes a repositorio generico
+
+## 1.1.0

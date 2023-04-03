@@ -4,6 +4,7 @@ using MongoDB.Driver;
 using Microsoft.Extensions.Options;
 using Servicios.api.libreria.Core.Entities;
 using Servicios.api.libreria.Core;
+using System.Linq.Expressions;
 
 namespace Servicios.api.libreria.Repository;
 
@@ -55,7 +56,18 @@ public class MongoRepository<TDocument> : IMongoRepository<TDocument> where TDoc
     {
         var filter = Builders<TDocument>.Filter.Eq(doc => doc.Id, Id);
         await collectionname.FindOneAndDeleteAsync(filter);
+    }
 
+    public Task<PaginationEntity<TDocument>> PaginationBy(Expression<Func<TDocument, bool>> filterExpression, PaginationEntity<TDocument> pagination)
+    {
+        var sort = Builders<TDocument>.Sort.Ascending(pagination.Sort);
+
+        if (pagination.SortDirection == "desc")
+        {
+            sort = Builders<TDocument>.Sort.Descending(pagination.Sort);
+        }
+
+        return;
 
     }
 }
@@ -70,5 +82,10 @@ public interface IMongoRepository<TDocument> where TDocument : IDocument
 
     Task UpdateDocument(TDocument document);
     Task DeleteDocument(string Id);
+
+    Task<PaginationEntity<TDocument>> PaginationBy(
+        Expression<Func<TDocument, bool>> filterExpression,
+        PaginationEntity<TDocument> pagination
+    );
 
 }
