@@ -1,8 +1,9 @@
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Servicios.api.libreria.Core.Entities;
 
-class Author
+public class Author
 {
     /**
         * Definiendo object id de mongo
