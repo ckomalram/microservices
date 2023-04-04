@@ -18,7 +18,7 @@
     Implementar repositorio generico a controlador
     Agregar endpoint restantes a repositorio generico
 
-## 1.1.0
+## 1.0.1
 
     Crear entity de paginador generico
     Agregar paginador generico a repositorio generico.
