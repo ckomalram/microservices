@@ -37,6 +37,19 @@ public class LibreriaAuthorController : ControllerBase
 
     }
 
+    [HttpPost("pagination")]
+    public async Task<ActionResult<PaginationEntity<AuthorEntity>>> PostPagination(PaginationEntity<AuthorEntity> pagination)
+    {
+        Console.WriteLine(pagination.Filter);
+        var rta = await authorGenericRepository.PaginationBy(
+         filter => filter.Nombre == pagination.Filter,
+         pagination
+        );
+
+        return Ok(rta);
+
+    }
+
     [HttpPut("{id}")]
     public async Task Update(string id, AuthorEntity autor)
     {

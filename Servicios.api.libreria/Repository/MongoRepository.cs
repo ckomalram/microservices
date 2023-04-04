@@ -62,7 +62,7 @@ public class MongoRepository<TDocument> : IMongoRepository<TDocument> where TDoc
     {
         var sort = Builders<TDocument>.Sort.Ascending(pagination.Sort);
         var emptyFilter = Builders<TDocument>.Filter.Empty;
-        var skip = (pagination.Page - 1 * pagination.PageSize);
+        var skip = ((pagination.Page - 1) * pagination.PageSize);
 
         // Obtener count de toda la colección
         long totalDocument = await collectionname.CountDocumentsAsync(emptyFilter);
