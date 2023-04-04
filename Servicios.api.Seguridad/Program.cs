@@ -1,4 +1,5 @@
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -24,6 +25,10 @@ builder.Services.AddIdentityCore<User>()
 //## Agregando system clock para cuando se crea un nuevo usuario.
 // Si el objeto existe, simplemente toma la hora, si no existe, lo toma y lo crea.
 builder.Services.TryAddSingleton<ISystemClock, SystemClock>();
+
+//Agregar Media TR para uso de clase Register en Controladores
+// No es necesario agregar para otra clase applicacion
+builder.Services.AddMediatR(typeof(Register.UserRegisterCommand).Assembly);
 
 // agregando auto Mapper
 // No es necesario agregar para otra clase applicacion
