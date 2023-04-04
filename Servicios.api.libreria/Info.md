@@ -19,3 +19,11 @@
     Agregar endpoint restantes a repositorio generico
 
 ## 1.1.0
+
+    Crear entity de paginador generico
+    Agregar paginador generico a repositorio generico.
+    Logica de paginador en repo generico
+        - Paginador
+        - Filtro dinamico
+    Agregando controller para llamar a repo generico
+    Agregar cors
