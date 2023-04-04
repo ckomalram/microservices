@@ -25,6 +25,37 @@ builder.Services.TryAddSingleton<ISystemClock, SystemClock>();
 
 var app = builder.Build();
 
+// logica ALCANCE DE SERVICIOS
+/**
+Este tipo de código suele ser utilizado para realizar 
+operaciones que deben ejecutarse una sola vez 
+al inicio de la aplicación, como agregar un usuario de 
+administrador o inicializar una base de datos. 
+Al utilizar un alcance de servicio, se garantiza 
+que los servicios que se están utilizando sean eliminados de
+ la memoria una vez que la operación se ha completado, 
+ lo que ayuda a optimizar el rendimiento de la aplicación.
+*/
+// Llamar al contextdata seguridad para probar el user manager
+using (var context = app.Services.CreateScope())
+{
+    var services = context.ServiceProvider;
+
+    try
+    {
+        var usermanager = services.GetRequiredService<UserManager<User>>();
+        var contextEf = services.GetRequiredService<SeguridadContext>();
+
+        SeguridadContextData.InsertUser(contextEf, usermanager).Wait();
+
+    }
+    catch (Exception e)
+    {
+        var logging = services.GetRequiredService<ILogger<Program>>();
+        logging.LogError(e, "Error al registrar usuario");
+    }
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
