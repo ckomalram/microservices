@@ -11,6 +11,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//ADD CORS
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsRule", rule =>
+    {
+        // rule.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://mipagina.com");
+        rule.AllowAnyHeader().AllowAnyMethod().WithOrigins("*");
+    });
+});
+
 //mongodb configuration
 builder.Services.Configure<MongoSettings>(
     builder.Configuration.GetSection("MongoDb")
@@ -41,6 +51,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("CorsRule");
 
 app.UseAuthorization();
 
