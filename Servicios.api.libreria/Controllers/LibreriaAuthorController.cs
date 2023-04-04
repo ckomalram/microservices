@@ -42,9 +42,13 @@ public class LibreriaAuthorController : ControllerBase
     {
 
         // Console.WriteLine(pagination.Filter);
-        var rta = await authorGenericRepository.PaginationBy(
-         filter => filter.Nombre == pagination.Filter,
-         pagination
+        // var rta = await authorGenericRepository.PaginationBy(
+        //  filter => filter.Nombre == pagination.Filter,
+        //  pagination
+        // );
+
+        var rta = await authorGenericRepository.PaginationByFilter(
+        pagination
         );
 
         return Ok(rta);

@@ -101,6 +101,65 @@ public class MongoRepository<TDocument> : IMongoRepository<TDocument> where TDoc
         return pagination;
 
     }
+
+    public async Task<PaginationEntity<TDocument>> PaginationByFilter(PaginationEntity<TDocument> pagination)
+    {
+        var sort = Builders<TDocument>.Sort.Ascending(pagination.Sort);
+        var emptyFilter = Builders<TDocument>.Filter.Empty;
+        var skip = ((pagination.Page - 1) * pagination.PageSize);
+
+        // Obtener count de toda la colección
+        var totalDocument = 0;
+
+
+        if (pagination.SortDirection == "desc")
+        {
+            sort = Builders<TDocument>.Sort.Descending(pagination.Sort);
+        }
+
+        if (pagination.FilterValue == null)
+        {
+
+            var rta = await collectionname
+                            .Find(emptyFilter)
+                            .Sort(sort)
+                            .Skip(skip)
+                            .Limit(pagination.PageSize)
+                            .ToListAsync();
+            pagination.Data = rta;
+
+            totalDocument = (await collectionname
+                            .Find(emptyFilter)
+                            .ToListAsync()).Count();
+        }
+        else
+        {
+            // Expresion regular con valores que coincidadn
+            var customFilterValue = ".*" + pagination.FilterValue.Valor + ".*";
+            var customFilter = Builders<TDocument>.Filter.Regex(pagination.FilterValue.Propiedad, new MongoDB.Bson.BsonRegularExpression(customFilterValue, "i"));
+
+            var rta = await collectionname
+                .Find(customFilter)
+                .Sort(sort)
+                .Skip(skip)
+                .Limit(pagination.PageSize)
+                .ToListAsync();
+            pagination.Data = rta;
+
+            totalDocument = (await collectionname
+                .Find(customFilter)
+                .ToListAsync()).Count();
+        }
+
+        // long totalDocument = await collectionname.CountDocumentsAsync(emptyFilter);
+        var rounded = Math.Ceiling(totalDocument / Convert.ToDecimal(pagination.PageSize));
+        var totalPages = Convert.ToInt32(rounded);
+
+        pagination.PagesQuantity = totalPages;
+        pagination.TotalRows = totalDocument;
+
+        return pagination;
+    }
 }
 
 public interface IMongoRepository<TDocument> where TDocument : IDocument
@@ -117,6 +176,10 @@ public interface IMongoRepository<TDocument> where TDocument : IDocument
     Task<PaginationEntity<TDocument>> PaginationBy(
         Expression<Func<TDocument, bool>> filterExpression,
         PaginationEntity<TDocument> pagination
+    );
+
+    Task<PaginationEntity<TDocument>> PaginationByFilter(
+    PaginationEntity<TDocument> pagination
     );
 
 }
