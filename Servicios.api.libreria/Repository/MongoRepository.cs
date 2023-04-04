@@ -60,6 +60,7 @@ public class MongoRepository<TDocument> : IMongoRepository<TDocument> where TDoc
 
     public async Task<PaginationEntity<TDocument>> PaginationBy(Expression<Func<TDocument, bool>> filterExpression, PaginationEntity<TDocument> pagination)
     {
+
         var sort = Builders<TDocument>.Sort.Ascending(pagination.Sort);
         var emptyFilter = Builders<TDocument>.Filter.Empty;
         var skip = ((pagination.Page - 1) * pagination.PageSize);
@@ -89,7 +90,7 @@ public class MongoRepository<TDocument> : IMongoRepository<TDocument> where TDoc
         else
         {
             var rta = await collectionname
-                .Find(pagination.Filter)
+                .Find(filterExpression)
                 .Sort(sort)
                 .Skip(skip)
                 .Limit(pagination.PageSize)
