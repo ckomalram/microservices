@@ -1,4 +1,8 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Servicios.api.Seguridad.Core.Context;
+using Servicios.api.Seguridad.Core.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +15,13 @@ builder.Services.AddSwaggerGen();
 
 // Agregar EF
 builder.Services.AddSqlServer<SeguridadContext>(builder.Configuration.GetConnectionString("cnSeguridadDb"));
+// Agregando identity core
+builder.Services.AddIdentityCore<User>()
+                .AddEntityFrameworkStores<SeguridadContext>()
+                .AddSignInManager<SignInManager<User>>();
+// Agregando system clock para cuando se crea un nuevo usuario.
+// Si el objeto existe, simplemente toma la hora, si no existe, lo toma y lo crea.
+builder.Services.TryAddSingleton<ISystemClock, SystemClock>();
 
 var app = builder.Build();
 
