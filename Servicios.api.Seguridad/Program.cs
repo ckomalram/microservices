@@ -1,6 +1,8 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Servicios.api.Seguridad.Core.Application;
 using Servicios.api.Seguridad.Core.Context;
 using Servicios.api.Seguridad.Core.Entities;
 
@@ -22,6 +24,10 @@ builder.Services.AddIdentityCore<User>()
 //## Agregando system clock para cuando se crea un nuevo usuario.
 // Si el objeto existe, simplemente toma la hora, si no existe, lo toma y lo crea.
 builder.Services.TryAddSingleton<ISystemClock, SystemClock>();
+
+// agregando auto Mapper
+// No es necesario agregar para otra clase applicacion
+builder.Services.AddAutoMapper(typeof(Register.UserRegisterHandler));
 
 var app = builder.Build();
 
