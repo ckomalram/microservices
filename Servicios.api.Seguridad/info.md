@@ -17,7 +17,7 @@ dotnet ef database update
 
 # Versiones
 
-# 1.0.2
+## 1.0.2
 
     Se creo nuevo proyecto de seguridad
     Se creo entidad de user
@@ -27,3 +27,7 @@ dotnet ef database update
     Se configuro identity core en el program cs
     Se creo contexto estatico de seguridad data
     Se inyecto en program cs seguridadData con "using" logica para alcance de servicio.
+
+## 1.0.3
+
+    Implementando patterns CQRS

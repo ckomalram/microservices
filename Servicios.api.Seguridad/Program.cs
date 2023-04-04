@@ -13,19 +13,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Agregar EF
+//## Agregar EF
 builder.Services.AddSqlServer<SeguridadContext>(builder.Configuration.GetConnectionString("cnSeguridadDb"));
-// Agregando identity core
+//## Agregando identity core
 builder.Services.AddIdentityCore<User>()
                 .AddEntityFrameworkStores<SeguridadContext>()
                 .AddSignInManager<SignInManager<User>>();
-// Agregando system clock para cuando se crea un nuevo usuario.
+//## Agregando system clock para cuando se crea un nuevo usuario.
 // Si el objeto existe, simplemente toma la hora, si no existe, lo toma y lo crea.
 builder.Services.TryAddSingleton<ISystemClock, SystemClock>();
 
 var app = builder.Build();
 
-// logica ALCANCE DE SERVICIOS
+//##  logica ALCANCE DE SERVICIOS
 /**
 Este tipo de código suele ser utilizado para realizar 
 operaciones que deben ejecutarse una sola vez 
