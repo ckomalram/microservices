@@ -48,3 +48,7 @@ dotnet ef database update
     Se agrega campo al userdto de token
     Se agrega logica a register.class
     Se crea login.cs
+    Se crea httpost en controlador user para login.
+    Se crea clase UserSesion
+    Se inyecta UserSession como scoped.
+    Se crea clase cqrs userCurrent para obtener ese usuario sesion.

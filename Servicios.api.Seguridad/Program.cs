@@ -39,6 +39,9 @@ builder.Services.AddAutoMapper(typeof(Register.UserRegisterHandler));
 
 //Agregar uso de TOken
 builder.Services.AddScoped<IJwtGenerator, JwtGenerator>();
+//Agregando session del usuario
+builder.Services.AddScoped<IUserSesion, UserSesion>();
+
 
 var app = builder.Build();
 

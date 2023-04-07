@@ -42,13 +42,6 @@ public interface IJwtGenerator
 
 }
 
-public interface IUserSesion
-{
-    string GetUserSession();
-
-}
-
-
 
 
 
