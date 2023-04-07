@@ -21,4 +21,10 @@ public class UserController : ControllerBase
     {
         return await _mediator.Send(parametros);
     }
+
+    [HttpPost("login")]
+    public async Task<ActionResult<UserDto>> Login(Login.UserLoginCommand parametros)
+    {
+        return await _mediator.Send(parametros);
+    }
 }
