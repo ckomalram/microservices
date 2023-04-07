@@ -1,0 +1,16 @@
+{
+    "Routes": [
+        {
+            "DownStreamPathTemplate": "/api/LibreriaAuthor",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                  "Host": "localhost",
+                  "Port": 5057
+                }
+              ],
+              "UpstreamPathTemplate": "/autorLista",
+              "UpstreamHttpMethod": [ "GET", "POST", "PUT","DELETE" ]
+        }
+    ]
+}

@@ -18,3 +18,7 @@ dotnet ef database update
 # Versiones
 
 ## 1.0.5 API Gateway y Ocelot
+
+    Instalar libreria de Ocelot
+    Crear json de conf de ocelot
+    Inyectar configuracion de Ocelot en program cs
