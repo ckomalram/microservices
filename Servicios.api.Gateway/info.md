@@ -22,3 +22,6 @@ dotnet ef database update
     Instalar libreria de Ocelot
     Crear json de conf de ocelot
     Inyectar configuracion de Ocelot en program cs
+    Se instala lib jwtbearer
+    Se agrega conf de autorizacion al apigateway
+    Se agrega autorizacion al program.cs
