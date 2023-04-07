@@ -83,7 +83,55 @@
       ],
       "UpstreamPathTemplate": "/user/login",
       "UpstreamHttpMethod": [ "POST"]
-  } 
+  },
+  {
+    "DownStreamPathTemplate": "/api/LibreriaBook",
+    "DownstreamScheme": "http",
+    "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5217
+        }
+      ],
+      "UpstreamPathTemplate": "/book",
+      "UpstreamHttpMethod": [ "GET", "POST"],
+      "AuthenticationOptions":{
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+},
+{
+  "DownStreamPathTemplate": "/api/LibreriaBook/{id}",
+  "DownstreamScheme": "http",
+  "DownstreamHostAndPorts": [
+      {
+        "Host": "localhost",
+        "Port": 5217
+      }
+    ],
+    "UpstreamPathTemplate": "/book/{id}",
+    "UpstreamHttpMethod": [ "GET", "PUT" , "DELETE"],
+    "AuthenticationOptions":{
+      "AuthenticationProviderKey": "Bearer",
+      "AllowedScopes": []
+    }
+},
+{
+"DownStreamPathTemplate": "/api/LibreriaBook/pagination",
+"DownstreamScheme": "http",
+"DownstreamHostAndPorts": [
+    {
+      "Host": "localhost",
+      "Port": 5217
+    }
+  ],
+  "UpstreamPathTemplate": "/book/pagination",
+  "UpstreamHttpMethod": [ "POST"],
+  "AuthenticationOptions":{
+    "AuthenticationProviderKey": "Bearer",
+    "AllowedScopes": []
+  }
+}
     
 ]
 }
