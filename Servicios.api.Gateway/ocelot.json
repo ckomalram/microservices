@@ -47,6 +47,43 @@
             "AuthenticationProviderKey": "Bearer",
             "AllowedScopes": []
           }
-    }
-    ]
+    },
+  {
+    "DownStreamPathTemplate": "/api/User",
+    "DownstreamScheme": "http",
+    "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5218
+        }
+      ],
+      "UpstreamPathTemplate": "/user",
+      "UpstreamHttpMethod": [ "GET"]
+  },
+  {
+    "DownStreamPathTemplate": "/api/User/register",
+    "DownstreamScheme": "http",
+    "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5218
+        }
+      ],
+      "UpstreamPathTemplate": "/user/register",
+      "UpstreamHttpMethod": [ "POST"]
+  } ,
+  {
+    "DownStreamPathTemplate": "/api/User/login",
+    "DownstreamScheme": "http",
+    "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5218
+        }
+      ],
+      "UpstreamPathTemplate": "/user/login",
+      "UpstreamHttpMethod": [ "POST"]
+  } 
+    
+]
 }
