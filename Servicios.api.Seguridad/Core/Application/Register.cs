@@ -1,4 +1,5 @@
 using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Servicios.api.Seguridad.Core.Context;
@@ -19,6 +20,19 @@ public class Register
         public string Direccion { get; set; }
         public string Password { get; set; }
 
+    }
+
+    public class UserRegisterValidation : AbstractValidator<UserRegisterCommand>
+    {
+        public UserRegisterValidation()
+        {
+            RuleFor(x => x.Nombre).NotEmpty();
+            RuleFor(x => x.Apellido).NotEmpty();
+            RuleFor(x => x.Username).NotEmpty();
+            RuleFor(x => x.Email).NotEmpty();
+            RuleFor(x => x.Direccion).NotEmpty();
+            RuleFor(x => x.Password).NotEmpty();
+        }
     }
 
     // Clase para manejar la respuesta con el dto
