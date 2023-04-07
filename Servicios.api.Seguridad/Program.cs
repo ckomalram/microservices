@@ -22,6 +22,16 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//ADD CORS
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsRule", rule =>
+    {
+        // rule.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://mipagina.com");
+        rule.AllowAnyHeader().AllowAnyMethod().WithOrigins("*");
+    });
+});
+
 //## Agregar EF
 builder.Services.AddSqlServer<SeguridadContext>(builder.Configuration.GetConnectionString("cnSeguridadDb"));
 //## Agregando identity core
@@ -102,6 +112,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("CorsRule");
 
 app.UseAuthorization();
 

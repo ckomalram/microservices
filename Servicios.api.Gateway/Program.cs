@@ -17,6 +17,16 @@ IConfiguration configuration = new ConfigurationBuilder()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//ADD CORS
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsRule", rule =>
+    {
+        // rule.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://mipagina.com");
+        rule.AllowAnyHeader().AllowAnyMethod().WithOrigins("*");
+    });
+});
+
 //Agregar Ocelot
 builder.Services.AddOcelot(configuration);
 
@@ -44,7 +54,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("CorsRule");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
