@@ -47,3 +47,4 @@ dotnet ef database update
     Se Inyecta con addscope clase de token
     Se agrega campo al userdto de token
     Se agrega logica a register.class
+    Se crea login.cs
