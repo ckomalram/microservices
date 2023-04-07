@@ -16,6 +16,12 @@ public class UserController : ControllerBase
         _mediator = mediator;
     }
 
+    [HttpGet]
+    public async Task<ActionResult<UserDto>> Get()
+    {
+        return await _mediator.Send(new UserCurrent.UserCurrentCommand());
+    }
+
     [HttpPost("register")]
     public async Task<ActionResult<UserDto>> Register(Register.UserRegisterCommand parametros)
     {

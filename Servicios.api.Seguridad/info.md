@@ -52,3 +52,6 @@ dotnet ef database update
     Se crea clase UserSesion
     Se inyecta UserSession como scoped.
     Se crea clase cqrs userCurrent para obtener ese usuario sesion.
+    Se instala libreria jwtbearer
+    Se crea configuracion para autenticacion en program.cs
+    Se crea controlador

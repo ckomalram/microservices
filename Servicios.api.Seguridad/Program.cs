@@ -1,9 +1,12 @@
+using System.Text;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.IdentityModel.Tokens;
 using Servicios.api.Seguridad.Core.Application;
 using Servicios.api.Seguridad.Core.Context;
 using Servicios.api.Seguridad.Core.Entities;
@@ -42,6 +45,21 @@ builder.Services.AddScoped<IJwtGenerator, JwtGenerator>();
 //Agregando session del usuario
 builder.Services.AddScoped<IUserSesion, UserSesion>();
 
+//configuracion para autenticación
+var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("RrF1XwA6ke5nApomZfCzrflviFtkxgqj"));
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        // options.RequireHttpsMetadata = false;
+        // options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = key,
+            ValidateIssuer = false, // Verificar el dominio de donde se genera el token
+            ValidateAudience = false, // true ciertos ip puedan acceder a mi aplicacion
+        };
+    });
 
 var app = builder.Build();
 
