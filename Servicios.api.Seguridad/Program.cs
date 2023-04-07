@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Servicios.api.Seguridad.Core.Application;
 using Servicios.api.Seguridad.Core.Context;
 using Servicios.api.Seguridad.Core.Entities;
+using Servicios.api.Seguridad.Core.Entities.JwtLogic;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +36,9 @@ builder.Services.AddMediatR(typeof(Register.UserRegisterCommand).Assembly);
 // agregando auto Mapper
 // No es necesario agregar para otra clase applicacion
 builder.Services.AddAutoMapper(typeof(Register.UserRegisterHandler));
+
+//Agregar uso de TOken
+builder.Services.AddScoped<IJwtGenerator, JwtGenerator>();
 
 var app = builder.Build();
 

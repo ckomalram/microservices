@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Servicios.api.Seguridad.Core.Context;
 using Servicios.api.Seguridad.Core.Dto;
 using Servicios.api.Seguridad.Core.Entities;
+using Servicios.api.Seguridad.Core.Entities.JwtLogic;
 
 // Esta clase es una logica de negocio CQRS
 namespace Servicios.api.Seguridad.Core.Application;
@@ -41,12 +42,15 @@ public class Register
         private readonly SeguridadContext context;
         private readonly UserManager<User> usermanager;
         private readonly IMapper mapper;
+        private readonly IJwtGenerator jwtGenerator;
 
-        public UserRegisterHandler(SeguridadContext segcontext, UserManager<User> manager, IMapper _mapper)
+        public UserRegisterHandler(SeguridadContext segcontext, UserManager<User> manager,
+         IMapper _mapper, IJwtGenerator _jwtGenerator)
         {
             context = segcontext;
             usermanager = manager;
             mapper = _mapper;
+            jwtGenerator = _jwtGenerator;
         }
         public async Task<UserDto> Handle(UserRegisterCommand request, CancellationToken cancellationToken)
         {
@@ -78,6 +82,7 @@ public class Register
             if (rta.Succeeded)
             {
                 var userDto = mapper.Map<User, UserDto>(newUser);
+                userDto.Token = jwtGenerator.CreateToken(newUser);
                 return userDto;
             }
 

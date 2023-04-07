@@ -41,7 +41,9 @@ dotnet ef database update
     Se inyecta FV en program.cs
     Se agrega FV a register class.
 
-## 1.0.4 JWT en nuestros Microservices
+## 1.0.4 JWT en nuestros Microservices ( https://randomkeygen.com/)
 
-- https://randomkeygen.com/
-  Crear clase de JwtGenerator
+    Crear clase de JwtGenerator
+    Se Inyecta con addscope clase de token
+    Se agrega campo al userdto de token
+    Se agrega logica a register.class
