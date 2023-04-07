@@ -26,3 +26,6 @@ dotnet ef database update
     Se agrega conf de autorizacion al apigateway
     Se agrega autorizacion al program.cs
     Se agrega endpoint de seguridad microservices.
+    Se configuran puertos
+    se agregan endpoints restantes
+    se agregan cors de no haberse agregado antes.
