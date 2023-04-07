@@ -28,6 +28,15 @@ dotnet ef database update
     Se creo contexto estatico de seguridad data
     Se inyecto en program cs seguridadData con "using" logica para alcance de servicio.
 
-## 1.0.3
+## 1.0.3 Implementando patterns CQRS
 
-    Implementando patterns CQRS
+    Se crea clase register
+    Se crea clase dto
+    Se instaa MediaTR
+    Se crea clase mapping profile
+    Se inyecta automapper en program.cs
+    Se inyecta mediatr en program.cs
+    Se crea controlador
+    Se instala fluentvalidation aspnetcore
+    Se inyecta FV en program.cs
+    Se agrega FV a register class.
