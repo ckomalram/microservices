@@ -16,6 +16,7 @@ public class Register
         public string Apellido { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
+        public string Direccion { get; set; }
         public string Password { get; set; }
 
     }
@@ -51,14 +52,15 @@ public class Register
 
             var newUser = new User
             {
-                Nombre = "Carlyle",
-                Apellido = "Komalram",
-                Email = "ckomalram@cursonet.com",
-                UserName = "ckomalram",
+                Nombre = request.Nombre,
+                Apellido = request.Apellido,
+                Email = request.Email,
+                UserName = request.Username,
+                Direccion = request.Direccion
             };
 
             var rta = await usermanager.CreateAsync(newUser, request.Password);
-
+            Console.WriteLine(rta);
             if (rta.Succeeded)
             {
                 var userDto = mapper.Map<User, UserDto>(newUser);
