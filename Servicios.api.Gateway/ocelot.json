@@ -6,7 +6,7 @@
             "DownstreamHostAndPorts": [
                 {
                   "Host": "localhost",
-                  "Port": 5057
+                  "Port": 5217
                 }
               ],
               "UpstreamPathTemplate": "/autorLista",

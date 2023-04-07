@@ -25,3 +25,4 @@ dotnet ef database update
     Se instala lib jwtbearer
     Se agrega conf de autorizacion al apigateway
     Se agrega autorizacion al program.cs
+    Se agrega endpoint de seguridad microservices.
